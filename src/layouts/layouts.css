@@ -1,0 +1,7 @@
+.box-container {
+  border: 2px solid blue;
+
+  & h1 {
+    color: red;
+  }
+}
