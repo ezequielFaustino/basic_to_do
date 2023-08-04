@@ -1,7 +1,0 @@
-:root {
-  --ff-base: 'IBM Plex Mono', monospace;
-}
-
-body {
-  font-family: var(--ff-base);
-}
