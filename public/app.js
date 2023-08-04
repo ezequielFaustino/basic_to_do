@@ -1,8 +1,10 @@
+import * as localStorage from './local-storage.js' 
+
 const form = document.querySelector('[data-js="form"]') 
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
 
-const saveTodo = text => {
+const saveTodo = (text, done = 0, save = 1) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
 
@@ -20,6 +22,14 @@ const saveTodo = text => {
   eraseBtn.classList.add('erase-btn')
   eraseBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash"></i>'
   todo.appendChild(eraseBtn)
+
+  if(done) {
+    todo.classList.add('done')
+  }
+
+  if(save) {
+    localStorage.save({text, done})
+  }
 
   todoList.appendChild(todo)
 
@@ -47,8 +57,16 @@ const removeTodo = event => {
 
 }
 
+const load = () => {
+  const todos  = localStorage.getLocalStorage()
 
-handleFormSubmit = event => {
+  todos.forEach(todo => {
+    saveTodo(todo.text, todo.done, 0)
+  })
+}
+
+
+const handleFormSubmit = event => {
   event.preventDefault()
 
   const inputValue = todoInput.value.trim()
@@ -64,3 +82,6 @@ handleFormSubmit = event => {
 form.addEventListener('submit', handleFormSubmit)
 todoList.addEventListener('pointerdown', removeTodo)
 todoList.addEventListener('pointerdown', doneTodo)
+
+
+load()
