@@ -21,12 +21,31 @@ const saveTodo = text => {
   todoInput.value = ''
 }
 
-handleFormSubmit = event => {
-  event.preventDefault()
 
-  const inputValue = todoInput.value
-  saveTodo(inputValue)
+const removeTodo = event => {
+  const targetEl = event.target
+  const parentEl = targetEl.closest('div')
+  const isEraseBtnEl = targetEl.classList.contains('erase-btn')
+
+  if(isEraseBtnEl) {
+    parentEl.remove()
+  }
 
 }
 
+
+handleFormSubmit = event => {
+  event.preventDefault()
+
+  const inputValue = todoInput.value.trim()
+  
+  if(!inputValue.length) {
+    alert('Informe o nome da tarefa')
+    return
+  }
+
+  saveTodo(inputValue)
+}
+
 form.addEventListener('submit', handleFormSubmit)
+todoList.addEventListener('pointerdown', removeTodo)

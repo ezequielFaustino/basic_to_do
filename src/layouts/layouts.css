@@ -47,7 +47,13 @@ div.list {
 
     & .item {
       flex: 1;
-    }  
+    }
+    
+    & .erase-btn {
+      & i {
+        pointer-events: none;
+      }
+    }
   } 
   
 }
