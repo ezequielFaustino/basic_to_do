@@ -5,9 +5,17 @@
   cursor: pointer;
 }
 
-.erase-btn {
+.done-btn, .erase-btn {
   padding: .5em;
   border: none;
-  color: red;
   cursor: pointer;
+}
+
+.done-btn {
+  color: green;
+  margin-right: .5em;
+}
+
+.erase-btn {
+  color: red;
 }

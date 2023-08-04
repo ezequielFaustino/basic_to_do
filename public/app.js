@@ -11,6 +11,11 @@ const saveTodo = text => {
   todo.textContent = text
   todo.appendChild(item)
 
+  const doneBtn = document.createElement('button')
+  doneBtn.classList.add('done-btn')
+  doneBtn.innerHTML = `<i class="fa-sharp fa-solid fa-check"></i>`
+  todo.appendChild(doneBtn)
+
   const eraseBtn = document.createElement('button')
   eraseBtn.classList.add('erase-btn')
   eraseBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash"></i>'
@@ -21,6 +26,15 @@ const saveTodo = text => {
   todoInput.value = ''
 }
 
+const doneTodo = event => {
+  const targetEl = event.target
+  const isDoneBtnEl = targetEl.classList.contains('done-btn')
+  const parentEl = targetEl.closest('div')
+
+  if(isDoneBtnEl) {
+    parentEl.classList.toggle('done')
+  }
+}
 
 const removeTodo = event => {
   const targetEl = event.target
@@ -49,3 +63,4 @@ handleFormSubmit = event => {
 
 form.addEventListener('submit', handleFormSubmit)
 todoList.addEventListener('pointerdown', removeTodo)
+todoList.addEventListener('pointerdown', doneTodo)

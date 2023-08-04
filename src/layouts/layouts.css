@@ -31,11 +31,20 @@ form[data-js="form"] {
   }
 }
 
+
+
 div.list {
   padding: 1em;
   user-select: none;
   display: flex;
   flex-direction: column;
+
+  & .done {
+    background: #395169;
+    color: #fff;
+    text-decoration: line-through;
+    font-style: italic
+  }
 
   & .todo {
     display: flex;
@@ -49,7 +58,7 @@ div.list {
       flex: 1;
     }
     
-    & .erase-btn {
+    & .erase-btn, .done-btn {
       & i {
         pointer-events: none;
       }
