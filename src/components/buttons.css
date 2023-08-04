@@ -1,0 +1,13 @@
+.btn {
+  padding: .5em 1em;
+  border: none;
+  color: green;
+  cursor: pointer;
+}
+
+.erase-btn {
+  padding: .5em;
+  border: none;
+  color: red;
+  cursor: pointer;
+}

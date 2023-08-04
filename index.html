@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Lista de tarefas</title>
   <link rel="stylesheet" href="public/app.css">
 </head>
+
 <body>
   <div class="wrapper">
-    <div class="box-container">
-      <h1>Hello</h1>
-      <p>Lorem ipsum dolor sit amet.</p>
+    <header>
+      <h1 class="text-center">Todo Básico</h1>
+    </header>
+
+    <form data-js="form">
+      <p class="text-center">Adicione sua tarefa:</p>
+      <div class="form-control">
+        <input type="text" class="input-text" data-js="todo-input" placeholder="O que irá fazer?">
+        <button type="submit" class="btn">+</button>
+      </div>
+    </form>
+
+    <div class="list">
+      <h3 class="item">New task</h3>
+      <button class="erase-btn">X</button>
     </div>
+
   </div>
 </body>
+
 </html>
