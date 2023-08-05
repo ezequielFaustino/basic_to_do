@@ -1,6 +1,6 @@
-import * as localStorage from './local-storage.js' 
+import * as localStorage from './local-storage.js'
 
-const form = document.querySelector('[data-js="form"]') 
+const form = document.querySelector('[data-js="form"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
 
@@ -23,17 +23,18 @@ const saveTodo = (text, done = 0, save = 1) => {
   eraseBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash"></i>'
   todo.appendChild(eraseBtn)
 
-  if(done) {
+  if (done) {
     todo.classList.add('done')
   }
 
-  if(save) {
-    localStorage.save({text, done})
+  if (save) {
+    localStorage.save({ text, done })
   }
 
   todoList.appendChild(todo)
 
   todoInput.value = ''
+  todoInput.focus()
 }
 
 const doneTodo = event => {
@@ -41,37 +42,49 @@ const doneTodo = event => {
   const isDoneBtnEl = targetEl.classList.contains('done-btn')
   const parentEl = targetEl.closest('div')
 
-  if(isDoneBtnEl) {
+  if (isDoneBtnEl) {
     parentEl.classList.toggle('done')
   }
+}
+
+const getTodoTitle = (parentEl)  => {
+    const todoTitle = parentEl.querySelector('h3')
+    return todoTitle
 }
 
 const removeTodo = event => {
   const targetEl = event.target
   const parentEl = targetEl.closest('div')
   const isEraseBtnEl = targetEl.classList.contains('erase-btn')
+  const isTaskToBeRemoved = parentEl && parentEl.querySelector('h3')
+  const todoTitle = getTodoTitle(parentEl) 
 
-  if(isEraseBtnEl) {
+  if(isTaskToBeRemoved) {
+    todoTitle.innerText
+  }
+
+  if (isEraseBtnEl) {
     parentEl.remove()
+    console.log(todoTitle)
+    localStorage.remove(todoTitle)
   }
 
 }
 
 const load = () => {
-  const todos  = localStorage.getLocalStorage()
+  const todos = localStorage.getLocalStorage()
 
   todos.forEach(todo => {
     saveTodo(todo.text, todo.done, 0)
   })
 }
 
-
 const handleFormSubmit = event => {
   event.preventDefault()
 
   const inputValue = todoInput.value.trim()
-  
-  if(!inputValue.length) {
+
+  if (!inputValue.length) {
     alert('Informe o nome da tarefa')
     return
   }
@@ -82,6 +95,5 @@ const handleFormSubmit = event => {
 form.addEventListener('submit', handleFormSubmit)
 todoList.addEventListener('pointerdown', removeTodo)
 todoList.addEventListener('pointerdown', doneTodo)
-
 
 load()

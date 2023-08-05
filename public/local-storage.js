@@ -11,3 +11,11 @@ export const save = value => {
 
   localStorage.setItem('todos', JSON.stringify(todos))
 }
+
+export const remove = todoText => {
+  const todos = getLocalStorage()
+
+  const filteredTodos = todos.filter(todo => todo.text !== todoText)
+
+  localStorage.setItem('todos', JSON.stringify(filteredTodos))
+}
