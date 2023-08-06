@@ -12,10 +12,10 @@ export const save = value => {
   localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-export const remove = todoText => {
+export const remove = todoId => {
   const todos = getLocalStorage()
 
-  const filteredTodos = todos.filter(todo => todo.text !== todoText)
+  const filteredTodos = todos.filter(todo => todo.id !== todoId)
 
   localStorage.setItem('todos', JSON.stringify(filteredTodos))
 }
