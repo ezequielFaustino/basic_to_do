@@ -1,12 +1,14 @@
 import * as localStorage from './local-storage.js'
 
-const form = document.querySelector('[data-js="form"]')
+const todoForm = document.querySelector('[data-js="todo-container"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
+const searchInput = document.querySelector('[data-js="search-input"]')
 
 const renderTodoList = (id, value) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
+  todo.classList.add('flex')
   todo.dataset.id = `${id}`
 
   const item = document.createElement('h4')
@@ -55,7 +57,6 @@ const doneTodo = element => {
   }
 }
 
-
 const removeTodo = event => {
   const trashWasClicked = event.target.dataset.trash
   
@@ -65,8 +66,24 @@ const removeTodo = event => {
   }
 }
 
+const searchTodo = event => {
+  event.preventDefault()
+
+  const searchValue = event.target.value.toLowerCase().trim()
+  const todos = Array.from(todoList.children).map(todo => ({
+      todo,
+      shouldBeVisible: todo.textContent.includes(searchValue)
+    }))
+  
+  todos.forEach(({todo, shouldBeVisible}) => {
+    todo.classList.add(shouldBeVisible ? 'flex' : 'hidden')
+    todo.classList.remove(shouldBeVisible ? 'hidden' : 'flex')
+  })
+}
+
 const getRandomId = () => Math.round(Math.random() * 1000)
 
-form.addEventListener('submit', addTodo)
+todoForm.addEventListener('submit', addTodo)
 todoList.addEventListener('pointerdown', removeTodo)
 todoList.addEventListener('pointerdown', doneTodo)
+searchInput.addEventListener('input', searchTodo)

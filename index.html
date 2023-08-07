@@ -20,11 +20,11 @@
       <h1 class="text-center">Todo Básico</h1>
     </header>
 
-    <form data-js="form">
-      <p class="text-center">Adicione sua tarefa:</p>
+    <form class="search-container">
+      <p class="text-center">Pesquise sua tarefa:</p>
       <div class="form-control">
-        <input type="text" class="input-text" data-js="todo-input" placeholder="O que irá fazer?">
-        <button type="submit" class="btn">+</button>
+        <input type="text" class="input-text" data-js="search-input" placeholder="Qual tarefa?">
+        <button type="submit" class="btn">?</button>
       </div>
     </form>
 
@@ -32,6 +32,13 @@
 
     </div>
 
+    <form data-js="todo-container">
+      <p class="text-center">Adicione sua tarefa:</p>
+      <div class="form-control">
+        <input type="text" class="input-text" data-js="todo-input" placeholder="O que irá fazer?">
+        <button type="submit" class="btn">+</button>
+      </div>
+    </form>
   </div>
 
   <script type="module" src="public/app.js"></script>

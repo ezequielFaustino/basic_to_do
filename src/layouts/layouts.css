@@ -16,7 +16,8 @@ header {
   padding: 1em;
 }
 
-form[data-js="form"] {
+form[data-js="todo-container"],
+form[data-js="search-container"] {
   display: flex;
   flex-flow: column wrap;
   padding: 1em;
@@ -30,8 +31,6 @@ form[data-js="form"] {
     align-items: center;
   }
 }
-
-
 
 div.list {
   padding: 1em;
@@ -47,7 +46,6 @@ div.list {
   }
 
   & .todo {
-    display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: .5em 1.25em;
