@@ -4,25 +4,14 @@ const form = document.querySelector('[data-js="form"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
 
-const addTodo = event  => {
-  event.preventDefault()
-
-  const inputValue = todoInput.value.trim()
-
-  if (!inputValue.length) {
-    alert('Informe o nome da tarefa')
-    return
-  }
-
-  const generateId = getRandomId()
-
+const renderTodoList = (id, value) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
-  todo.dataset.id = generateId
+  todo.dataset.id = `${id}`
 
   const item = document.createElement('h4')
   item.classList.add('item')
-  item.innerText = inputValue
+  item.textContent = `${value}`
   todo.appendChild(item)
 
   const doneBtn = document.createElement('button')
@@ -32,14 +21,28 @@ const addTodo = event  => {
 
   const eraseBtn = document.createElement('button')
   eraseBtn.classList.add('erase-btn')
-  eraseBtn.dataset.trash = generateId
+  eraseBtn.dataset.trash = `${id}`
   eraseBtn.innerHTML = `<i class="fa-sharp fa-solid fa-trash"></i>`
   todo.appendChild(eraseBtn)
 
-  todoList.appendChild(todo)
+  todoList.append(todo)
+}
 
-  todoInput.value = ''
-  todoInput.focus()
+const addTodo = event  => {
+  event.preventDefault()
+
+  const inputValue = todoInput.value.trim()
+  const randomId = getRandomId()
+
+  if (!inputValue.length) {
+    alert('Informe o nome da tarefa')
+    return
+  }
+
+  renderTodoList(randomId, inputValue)
+
+  event.target.reset()
+  event.target.focus()
 }
 
 const doneTodo = element => {
@@ -63,7 +66,6 @@ const removeTodo = event => {
 }
 
 const getRandomId = () => Math.round(Math.random() * 1000)
-
 
 form.addEventListener('submit', addTodo)
 todoList.addEventListener('pointerdown', removeTodo)
