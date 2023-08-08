@@ -31,12 +31,28 @@ const renderTodoList = (id, value) => {
   todoList.append(todo)
 }
 
+let newArr = []
+
+
+const removeFromArray = ID => {
+  newArr = newArr.filter(({id}) => id !== ID) 
+}
+
+
+const addTodoToArray = (id, value) => {
+  newArr.push({
+    id,
+    value
+  })
+}
+
 const addTodo = event => {
   event.preventDefault()
 
-  const inputValue = todoInput.value.trim()
   const randomId = getRandomId()
-  
+  const inputValue = todoInput.value.trim()
+
+  addTodoToArray(randomId, inputValue)
   if (!inputValue.length) {
     alert('Informe o nome da tarefa')
     return
@@ -60,8 +76,10 @@ const doneTodo = element => {
 
 const removeTodo = event => {
   const trashWasClicked = event.target.dataset.trash
-
+  const itemId = Number(trashWasClicked)
+  
   if (trashWasClicked) {
+    removeFromArray(itemId)
     const todo = document.querySelector(`[data-id="${trashWasClicked}"]`)
     todo.remove()
   }
