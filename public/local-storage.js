@@ -1,10 +1,9 @@
-export const getLocalStorage = () => {
-  const todos = JSON.parse(localStorage.getItem('todos')) || []
-  
+const getLocalStorage = () => {
+  const todos = JSON.parse(localStorage.getItem('todos')) || []  
   return todos
 } 
 
-export const save = value => {
+export const save = (value) => {
   const todos = getLocalStorage()
 
   todos.push(value)
@@ -15,7 +14,7 @@ export const save = value => {
 export const remove = todoId => {
   const todos = getLocalStorage()
 
-  const filteredTodos = todos.filter(todo => todo.id !== todoId)
+  const filteredTodos = todos.filter(todo => todo !== todoId)
 
   localStorage.setItem('todos', JSON.stringify(filteredTodos))
 }

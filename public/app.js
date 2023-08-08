@@ -6,6 +6,7 @@ const todoList = document.querySelector('.list')
 const searchInput = document.querySelector('[data-js="search-input"]')
 
 const renderTodoList = (id, value) => {
+
   const todo = document.createElement('div')
   todo.classList.add('todo')
   todo.classList.add('flex')
@@ -30,12 +31,12 @@ const renderTodoList = (id, value) => {
   todoList.append(todo)
 }
 
-const addTodo = event  => {
+const addTodo = event => {
   event.preventDefault()
 
   const inputValue = todoInput.value.trim()
   const randomId = getRandomId()
-
+  
   if (!inputValue.length) {
     alert('Informe o nome da tarefa')
     return
@@ -50,17 +51,17 @@ const addTodo = event  => {
 const doneTodo = element => {
   const elTarget = element.target
   const targetClosestEl = elTarget.closest('div')
-  
+
   const doneWasClicked = elTarget.classList.contains('done-btn')
-  if(doneWasClicked) {
+  if (doneWasClicked) {
     targetClosestEl.classList.toggle('done')
   }
 }
 
 const removeTodo = event => {
   const trashWasClicked = event.target.dataset.trash
-  
-  if(trashWasClicked) {
+
+  if (trashWasClicked) {
     const todo = document.querySelector(`[data-id="${trashWasClicked}"]`)
     todo.remove()
   }
@@ -71,11 +72,11 @@ const searchTodo = event => {
 
   const searchValue = event.target.value.toLowerCase().trim()
   const todos = Array.from(todoList.children).map(todo => ({
-      todo,
-      shouldBeVisible: todo.textContent.includes(searchValue)
-    }))
-  
-  todos.forEach(({todo, shouldBeVisible}) => {
+    todo,
+    shouldBeVisible: todo.textContent.includes(searchValue)
+  }))
+
+  todos.forEach(({ todo, shouldBeVisible }) => {
     todo.classList.add(shouldBeVisible ? 'flex' : 'hidden')
     todo.classList.remove(shouldBeVisible ? 'hidden' : 'flex')
   })
