@@ -1,67 +1,50 @@
-import * as localStorage from './local-storage.js'
-
 const todoForm = document.querySelector('[data-js="todo-container"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
 const searchInput = document.querySelector('[data-js="search-input"]')
 
-const renderTodoList = (id, value) => {
+const renderTodoList = todo => {
 
-  const todo = document.createElement('div')
-  todo.classList.add('todo')
-  todo.classList.add('flex')
-  todo.dataset.id = `${id}`
+  const task = document.createElement('div')
+  task.classList.add('todo')
+  task.classList.add('flex')
+  task.dataset.id = todo.id
 
   const item = document.createElement('h4')
   item.classList.add('item')
-  item.textContent = `${value}`
-  todo.appendChild(item)
+  item.textContent = `${todo.value}`
+  task.appendChild(item)
 
   const doneBtn = document.createElement('button')
   doneBtn.classList.add('done-btn')
   doneBtn.innerHTML = `<i class="fa-sharp fa-solid fa-check"></i>`
-  todo.appendChild(doneBtn)
+  task.appendChild(doneBtn)
 
   const eraseBtn = document.createElement('button')
   eraseBtn.classList.add('erase-btn')
-  eraseBtn.dataset.trash = `${id}`
+  eraseBtn.dataset.trash = todo.id
   eraseBtn.innerHTML = `<i class="fa-sharp fa-solid fa-trash"></i>`
-  todo.appendChild(eraseBtn)
+  task.appendChild(eraseBtn)
 
-  todoList.append(todo)
+  todoList.append(task)
 }
 
-let newArr = []
+const getLocalStorage = JSON.parse(localStorage.getItem('todos'))
 
+let todos = localStorage
+  .getItem('todos') !== null ? getLocalStorage : []
 
 const removeFromArray = ID => {
-  newArr = newArr.filter(({id}) => id !== ID) 
+  todos = todos.filter(({id}) => id !== ID)
+  updateLocalStorage()
+  init()
 }
 
-
 const addTodoToArray = (id, value) => {
-  newArr.push({
+  todos.push({
     id,
     value
   })
-}
-
-const addTodo = event => {
-  event.preventDefault()
-
-  const randomId = getRandomId()
-  const inputValue = todoInput.value.trim()
-
-  addTodoToArray(randomId, inputValue)
-  if (!inputValue.length) {
-    alert('Informe o nome da tarefa')
-    return
-  }
-
-  renderTodoList(randomId, inputValue)
-
-  event.target.reset()
-  event.target.focus()
 }
 
 const doneTodo = element => {
@@ -80,8 +63,6 @@ const removeTodo = event => {
   
   if (trashWasClicked) {
     removeFromArray(itemId)
-    const todo = document.querySelector(`[data-id="${trashWasClicked}"]`)
-    todo.remove()
   }
 }
 
@@ -100,9 +81,41 @@ const searchTodo = event => {
   })
 }
 
+const updateLocalStorage = () => {
+  localStorage.setItem('todos', JSON.stringify(todos))
+}
+
+const init = () => {
+  todoList.innerHTML = ''
+  todos.forEach(renderTodoList)
+}
+
+init()
+
 const getRandomId = () => Math.round(Math.random() * 1000)
 
-todoForm.addEventListener('submit', addTodo)
+todoForm.addEventListener('submit', event => {
+  event.preventDefault()
+
+  const todoId = getRandomId()
+  const inputValue = todoInput.value.trim()
+
+  if (!inputValue.length) {
+    alert('Informe o nome da tarefa')
+    return
+  }
+
+  addTodoToArray(todoId, inputValue)
+  updateLocalStorage()
+  init()
+
+  todoInput.value = ''
+  todoInput.focus()
+
+})
+
 todoList.addEventListener('pointerdown', removeTodo)
 todoList.addEventListener('pointerdown', doneTodo)
 searchInput.addEventListener('input', searchTodo)
+
+
