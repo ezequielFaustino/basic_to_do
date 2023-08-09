@@ -7,6 +7,8 @@ const renderTodoList = todo => {
 
   const task = document.createElement('div')
   task.classList.add('todo')
+  task.classList.add('w-2/3')
+  task.classList.add('sm:w-5/6')
   task.classList.add('flex')
   task.dataset.id = todo.id
 

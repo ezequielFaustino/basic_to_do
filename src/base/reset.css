@@ -1,14 +1,4 @@
-* { margin: 0;}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 700;
-  line-height: 1;
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
 }
