@@ -2,6 +2,8 @@ const todoForm = document.querySelector('[data-js="todo-container"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('.list')
 const searchInput = document.querySelector('[data-js="search-input"]')
+const warningItem = document.querySelector('[data-js="warning-item"]')
+
 
 const renderTodoList = todo => {
 
@@ -103,7 +105,10 @@ todoForm.addEventListener('submit', event => {
   const inputValue = todoInput.value.trim()
 
   if (!inputValue.length) {
-    alert('Informe o nome da tarefa')
+    warningItem.classList.remove('hidden')
+    setTimeout(() => {
+      warningItem.classList.add('hidden')
+    }, 3000)
     return
   }
 
