@@ -1,19 +1,21 @@
-.btn {
-  padding: .5em 1em;
-  color: green;
+@import '../base/base.css';
+
+.todo-btn {
+  font-weight: 500;
+  color: var(--clr-secondary-700);
   cursor: pointer;
 }
 
 .done-btn, .erase-btn {
-  padding: .5em;
   cursor: pointer;
 }
 
 .done-btn {
-  color: green;
+  font-weight: 700;
+  color: var(--clr-secondary-700);
   margin-right: .5em;
 }
 
 .erase-btn {
-  color: red;
+  color: var(--clr-secondary-500);
 }

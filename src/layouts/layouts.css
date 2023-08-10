@@ -1,8 +1,15 @@
+@import '../base/base.css';
+
 header {
   padding: 1em;
+
+  & h1 {
+    font-weight: 700;
+  }
 }
 
 .wrapper {
+  font-family: var(--ff-base);
   padding: 0 1em;
   max-width: 60em;
   margin-inline: auto;
@@ -15,7 +22,6 @@ header {
 
   @media screen and (min-width: 60em) {
     min-width: 50em;
-    border: 2px solid blue;
   }
 
 }
@@ -23,16 +29,13 @@ header {
 form[data-js="todo-container"],
 form[data-js="search-container"] {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column wrap;  
   padding: 1em;
 
-  & p {
-    margin-bottom: .5em;
-  }
-
-  & .form-control {
-    display: flex;
-    align-items: center;
+  & div .btn {
+    & i {
+      pointer-events: none;
+    }
   }
 }
 
@@ -40,29 +43,38 @@ div.list {
   padding: 1em;
   user-select: none;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
 
   & .done {
-    background: #395169;
-    color: #fff;
+    background: var(--clr-primary);
     text-decoration: line-through;
     font-style: italic
   }
 
   & .todo {
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
-    padding: .5em 1.25em;
+    padding: .75em 1.25em;
     margin: .5em 0;
     border: 1px solid #ccc;
 
+    @media screen and (min-width: 60em) {
+      justify-content: center;
+    }
+
     & .item {
       flex: 1;
+      margin-right: .5em;
     }
     
     & .erase-btn, .done-btn {
+      @media screen and (min-width: 60em) {
+        padding: .75em;
+      }
+
       & i {
         pointer-events: none;
+        margin: 0 .25em;
       }
     }
   }  

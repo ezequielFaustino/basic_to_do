@@ -74,7 +74,7 @@ const searchTodo = event => {
   const searchValue = event.target.value.toLowerCase().trim()
   const todos = Array.from(todoList.children).map(todo => ({
     todo,
-    shouldBeVisible: todo.textContent.includes(searchValue)
+    shouldBeVisible: todo.textContent.toLowerCase().includes(searchValue)
   }))
 
   todos.forEach(({ todo, shouldBeVisible }) => {
